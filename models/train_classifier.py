@@ -8,6 +8,7 @@ from sklearn.model_selection import train_test_split
 import pandas as pd
 import string
 import sqlite3
+import pickle
 
 def load_data(database_filepath):
     pass
@@ -28,7 +29,11 @@ def tokenize(text):
 
 
 def build_model():
-    pass
+
+    pipeline = Pipeline([
+    
+    
+    return model
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
@@ -37,6 +42,9 @@ def evaluate_model(model, X_test, Y_test, category_names):
 
 
 def save_model(model, model_filepath):
+    filename = './models/classifier.pkl'
+    pickle.dump(model, open(filename, 'wb'))
+    pickle.dump(model, open(filename, 'wb'))
     pass
 
 
