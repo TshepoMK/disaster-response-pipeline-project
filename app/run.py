@@ -37,7 +37,7 @@ def tokenize(text):
     return (" ".join(str(token) for token in clean_tokens))
 
 # load data
-engine = create_engine('sqlite:///../data/disaster_messages_data.db')
+engine = create_engine('sqlite:///../data/disaster_response_messages.db')
 df = pd.read_sql_table('disaster_message', engine)
 # conn = sqlite3.connect('./data/disaster_messages_data.db')
 # df = pd.read_sql('SELECT * FROM disaster_message', conn)
