@@ -1,21 +1,30 @@
 import json
 import plotly
+import string
 import pandas as pd
 
+
+import joblib
+from flask import Flask
+from plotly.graph_objs import Bar
+from sqlalchemy import create_engine
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
-
-from flask import Flask
 from flask import render_template, request, jsonify
-from plotly.graph_objs import Bar
-import joblib
-from sqlalchemy import create_engine
 
 
 app = Flask(__name__)
 
 def tokenize(text):
-   punc_numbers = string.punctuation + '0123456789'
+    """
+    This function takes in a string and returns a list of normalized tokens after.
+    - Removes punctuation
+    - Tokenizes the text
+    - Lemmatizes the tokens
+    And then joins the tokens back into a string.
+    
+    """
+    punc_numbers = string.punctuation + '0123456789'
     text = ''.join([l for l in text if l not in punc_numbers])
     tokens = word_tokenize(text)
     lemmatizer = WordNetLemmatizer()
@@ -30,6 +39,9 @@ def tokenize(text):
 # load data
 engine = create_engine('sqlite:///../data/disaster_messages_data.db')
 df = pd.read_sql_table('disaster_message', engine)
+# conn = sqlite3.connect('./data/disaster_messages_data.db')
+# df = pd.read_sql('SELECT * FROM disaster_message', conn)
+
 
 # load model
 model = joblib.load("../models/classifier.pkl")
