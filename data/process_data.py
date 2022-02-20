@@ -8,7 +8,7 @@ def load_data(messages_filepath, categories_filepath):
     This function loads the data from the csv files and merges them into a single dataframe.
     
     """
-    messages_filepath = './data/disaster_categories.csv'
+    messages_filepath = './data/disaster_messages.csv'
     categories_filepath = './data/disaster_categories.csv'
 
     messages = pd.read_csv(messages_filepath)
@@ -24,7 +24,7 @@ def clean_data(merged_data):
     """
     This function cleans the data by removing the duplicates and dropping the columns that are not needed.
     """
-
+    
     categories_df = merged_data['categories'].str.split(';', expand=True)
 
     column_names = list(categories_df.iloc[0])
@@ -57,8 +57,8 @@ def save_data(disaster_training_data, database_filename):
     This function saves the cleaned data into a database.
     
     """
-
-    conn = sqlite3.connect('disaster_messages_data.db')
+    database_filename = './data/disaster_response_messages.db'
+    conn = sqlite3.connect(database_filename)
 
     # get a cursor
     cur = conn.cursor()
@@ -81,7 +81,6 @@ def save_data(disaster_training_data, database_filename):
     disaster_training_data.to_sql(name='disaster_message', con=conn, if_exists='replace', index=True)
 
     # commit the changes
-
     conn.commit()
     conn.close()
 
