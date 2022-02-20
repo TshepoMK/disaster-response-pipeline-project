@@ -8,13 +8,15 @@ from nltk.tokenize import word_tokenize
 from flask import Flask
 from flask import render_template, request, jsonify
 from plotly.graph_objs import Bar
-from sklearn.externals import joblib
+import joblib
 from sqlalchemy import create_engine
 
 
 app = Flask(__name__)
 
 def tokenize(text):
+   punc_numbers = string.punctuation + '0123456789'
+    text = ''.join([l for l in text if l not in punc_numbers])
     tokens = word_tokenize(text)
     lemmatizer = WordNetLemmatizer()
 
@@ -22,8 +24,8 @@ def tokenize(text):
     for tok in tokens:
         clean_tok = lemmatizer.lemmatize(tok).lower().strip()
         clean_tokens.append(clean_tok)
-
-    return clean_tokens
+    
+    return (" ".join(str(token) for token in clean_tokens))
 
 # load data
 engine = create_engine('sqlite:///../data/disaster_messages_data.db')
