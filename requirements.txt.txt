@@ -1,5 +1,0 @@
-db-sqlite3 == 3.0.0.1
-nltk == 3.6.1
-sklearn == 0.24.1
-plotly == 5.6.0
-
