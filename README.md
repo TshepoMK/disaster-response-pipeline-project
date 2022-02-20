@@ -1,4 +1,4 @@
-# disaster-response-pipeline-project
+# Disaster Response Pipeline Project
 Udacity nano degree submission
 
 
